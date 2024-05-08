@@ -15,16 +15,16 @@
 		background-color: white;
 		border-radius: 1em;
 
-		min-height: 0px;
+		min-height: 100%;
+		max-height: 100%;
 		flex-grow: 1;
 
 		overflow: hidden;
 
 		> div {
-			display: flex;
-			flex-wrap: wrap;
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 
-			min-height: 100%;
 			max-height: 100%;
 
 			overflow-x: hidden;

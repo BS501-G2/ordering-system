@@ -35,6 +35,7 @@
 		flex-direction: row;
 		box-sizing: border-box;
 
+		min-height: 100vh;
 		max-height: 100vh;
 
 		padding: 1em;
