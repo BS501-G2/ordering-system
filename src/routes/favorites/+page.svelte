@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Item from '../../components/FoodItem.svelte';
 	import { type FoodOrder } from '$lib';
+	import Title from '../../components/Title.svelte';
 
 	export const favorites: FoodOrder[] = [
 		{
@@ -66,6 +67,8 @@
 		}
 	];
 </script>
+
+<Title title="Favorites" />
 
 {#each favorites as favorite}
 	<Item details={favorite} />

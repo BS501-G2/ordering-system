@@ -43,7 +43,7 @@ export const foodItems: FoodItem[] = [
 		canBeExtra: false
 	},
 	{
-		name: '1-pc. Chicken McDo',
+		name: 'Chicken McDo',
 		price: 75,
 		image: '/images/chicken.jpeg',
 		variant: [],

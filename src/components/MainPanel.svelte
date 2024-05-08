@@ -1,8 +1,11 @@
 <script lang="ts">
+	import { titleStack } from '../components/Title.svelte';
+
 	const { children }: { children: (() => any) | null } = $props();
 </script>
 
 <div class="main-panel">
+	<h2>{$titleStack[$titleStack.length - 1]?.title}</h2>
 	<div>
 		{#if children !== null}
 			{@render children()}
@@ -21,14 +24,32 @@
 
 		overflow: hidden;
 
+		display: flex;
+		flex-direction: column;
+
+		gap: 1em;
+		padding: 1em;
+
+		> h2 {
+			margin: 0px;
+			font-weight: lighter;
+		}
+
 		> div {
+			flex-grow: 1;
+
+			border-top: 1px solid var(--color);
+			border-bottom: 1px solid var(--color);
+
 			display: grid;
+
+			gap: 1em;
+			padding: 1em 0px;
+
 			grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+			justify-items: center;
 
-			max-height: 100%;
-
-			overflow-x: hidden;
-			overflow-y: auto;
+			overflow: auto;
 		}
 	}
 </style>

@@ -1,5 +1,5 @@
-<script lang="ts">
-	import Favorites from '../favorites/+page.svelte';
+<script>
+	import Title from '../../components/Title.svelte';
 </script>
 
-<Favorites />
+<Title title="Files" />

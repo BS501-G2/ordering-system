@@ -11,7 +11,7 @@
 		const mainVariant =
 			selection.variantIndex != null ? main.variant[selection.variantIndex] : null;
 
-		return `${mainVariant != null ? mainVariant.name : ''} ${main.name}`;
+		return `${selection.quantity > 1 ? `${selection.quantity}x` : ''} ${mainVariant != null ? mainVariant.name : ''} ${main.name}`;
 	}
 
 	$: name = `${getName(details.main)}${details.extras.length > 0 ? ` w/ ${details.extras.map(getName).join(' & ')}` : ''}`;
@@ -24,7 +24,7 @@
 
 <div
 	class="item"
-	style="background-color:#ebf4e4; margin:20px; height:430px; width:300px;border-radius:20px"
+	style="background-color:#ebf4e4; height:430px; width:300px;border-radius:20px"
 >
 	<div>
 		<img

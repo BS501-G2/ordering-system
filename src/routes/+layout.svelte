@@ -1,14 +1,20 @@
-<script>
+<script lang="ts">
 	import NavigationPanel from '../components/NavigationPanel.svelte';
 	import MyBag from '../components/BagPanel.svelte';
 	import MainPanel from '../components/MainPanel.svelte';
+	import Title, { titleString } from '../components/Title.svelte';
 
 	import '@fortawesome/fontawesome-free/css/all.css';
+
+	const { children } = $props();
 </script>
+
+<Title title="Ordering System"/>
+<title>{$titleString}</title>
 
 <div class="main">
 	<NavigationPanel />
-	<MainPanel><slot /></MainPanel>
+	<MainPanel>{@render children()}</MainPanel>
 	<MyBag />
 </div>
 

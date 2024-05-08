@@ -54,6 +54,7 @@
 		> ul {
 			list-style: none;
 			padding: 0px;
+			margin: 0px;
 
 			> li {
 				display: flex;
