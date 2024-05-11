@@ -22,35 +22,79 @@
 	);
 </script>
 
-<div
-	class="item"
-	style="background-color:#ebf4e4; height:430px; width:300px;border-radius:20px"
->
-	<div>
-		<img
-			src={details.image}
-			alt=""
-			srcset=""
-			style="width:300px; height:250px;border-top-left-radius: 20px; border-top-right-radius:20px"
-		/>
-	</div>
-	<div style="margin:10px;">
-		<p style="font-weight:bold; font-size:20px">{name}</p>
-	</div>
-	<div>
-		<hr style="width: 90%; border: none; border-top: 1px solid #37812e;" />
-	</div>
-	<div style="margin-left:20px">
-		<p style="font-weight:bold; font-size:20px">P {price.toFixed(2)}</p>
-	</div>
-	<div style="display:flex; justify-content:center">
-		<button
-			style="padding:10px 70px; border-radius:20px; cursor:pointer; background-color:#37812e; font-weight:bold; font-size:14px; color:white;transition: background-color 0.3s;"
-		>
-			Order
-		</button>
+<div class="item">
+	<img src={details.image} alt="Item" />
+	<div class="info">
+		<p class="name"><b>{name}</b></p>
+		<div class="order">
+			<p class="type"><b>P {price.toFixed(2)}</b></p>
+			<div class="divider"></div>
+			<button>Order</button>
+		</div>
 	</div>
 </div>
 
 <style lang="scss">
+	div.item {
+		background-color: #ebf4e4;
+		min-width: 300px;
+		max-width: 300px;
+
+		border-radius: 8px;
+		display: flex;
+		flex-direction: column;
+
+		> img {
+			object-fit:cover;
+			height:280px;
+			width: 100%;
+			aspect-ratio: 1;
+
+			border-radius: 8px 8px 0 0;
+		}
+
+		> div.info {
+			padding: 16px;
+			gap: 16px;
+
+			box-sizing: border-box;
+
+			flex-grow: 1;
+
+			display: flex;
+			flex-direction: column;
+
+			> p.name {
+				flex-grow: 1;
+
+				min-height: 2.45em;
+				max-height: 2.45em;
+
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+
+			> div.order {
+				display: flex;
+				flex-direction:column;
+				border-radius: 4px;
+				font-size: 1.15em;
+				gap: 8px;
+
+				> button {
+					background-color: var(--color);
+					color: var(--background-color);
+					flex-grow: 1;
+					align-items: center;
+					border: none;
+					font-weight: bolder;
+					cursor: pointer;
+					border-radius: 16px;
+					font-size: 20px;
+					padding: 8px 16px;
+					
+				}
+			}
+		}
+	}
 </style>

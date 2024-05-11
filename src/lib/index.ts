@@ -5,10 +5,14 @@ export interface FoodVariant {
 	price: number;
 }
 
+export type FoodItemType = 'meal' | 'rice' | 'burger' | 'fries' | 'drink';
+export type FoodOrderDiscountType = 'senior' | 'pwd';
+
 export interface FoodItem {
 	name: string;
 	price: number;
 	image: string;
+	category: FoodItemType;
 
 	variant: FoodVariant[];
 	canBeExtra: boolean;
@@ -23,6 +27,7 @@ export const foodItems: FoodItem[] = [
 			{ name: 'Small', price: -30 },
 			{ name: 'Large', price: 50 }
 		],
+		category: 'drink',
 		canBeExtra: true
 	},
 	{
@@ -33,12 +38,14 @@ export const foodItems: FoodItem[] = [
 			{ name: 'Small', price: -30 },
 			{ name: 'Large', price: 50 }
 		],
+		category: 'fries',
 		canBeExtra: true
 	},
 	{
 		name: 'Crispy Fish Fillet Sandwich',
 		price: 180,
 		image: '/images/crispy-fish-fillet-sandwitch.jpg',
+		category: 'meal',
 		variant: [{ name: 'Double', price: +30 }],
 		canBeExtra: false
 	},
@@ -46,6 +53,7 @@ export const foodItems: FoodItem[] = [
 		name: 'Chicken McDo',
 		price: 75,
 		image: '/images/chicken.jpeg',
+		category: 'meal',
 		variant: [],
 		canBeExtra: false
 	},
@@ -53,13 +61,23 @@ export const foodItems: FoodItem[] = [
 		name: 'Rice',
 		price: 35,
 		image: '/images/rice.jpg',
-		variant: [{ name: 'Small', price: -30 }],
+		variant: [{ name: 'Small', price: -15 }],
+		category: 'rice',
+		canBeExtra: true
+	},
+	{
+		name: 'Fried Rice',
+		price: 40,
+		image: '/images/rice.jpg',
+		variant: [{ name: 'Small', price: -15 }],
+		category: 'rice',
 		canBeExtra: true
 	},
 	{
 		name: 'Coke McFloat',
 		price: 90,
 		image: '/images/coke-mcfloat.jpg',
+		category: 'drink',
 		variant: [
 			{ name: 'Small', price: -30 },
 			{ name: 'Large', price: 50 }
@@ -70,6 +88,7 @@ export const foodItems: FoodItem[] = [
 		name: 'Coke',
 		price: 70,
 		image: '/images/coke.jpeg',
+		category: 'drink',
 		variant: [
 			{ name: 'Small', price: -30 },
 			{ name: 'Large', price: 50 }
@@ -88,4 +107,6 @@ export interface FoodOrder {
 	main: FoodSelection;
 	extras: FoodSelection[];
 	image?: string;
+
+	discount?: 'senior' | 'pwd';
 }
