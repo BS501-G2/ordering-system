@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Item from '../../components/FoodItem.svelte';
 	import { type FoodOrder } from '$lib';
-	import Title from '../../components/Title.svelte';
+	import { Title } from '@rizzzi/svelte-commons';
 
 	export const favorites: FoodOrder[] = [
 		{

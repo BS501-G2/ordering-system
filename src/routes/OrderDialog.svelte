@@ -15,7 +15,7 @@
 </script>
 
 <script lang="ts">
-	import Dialog, { DialogClass } from '../components/Widgets/Dialog.svelte';
+	import { Dialog, DialogClass } from '@rizzzi/svelte-commons';
 </script>
 
 {#if currentOrderData !== null}

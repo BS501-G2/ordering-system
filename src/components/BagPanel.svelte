@@ -12,7 +12,7 @@
 
 <style lang="scss">
 	div.bag {
-		background-color: white;
+		background-color: var(--backgroundVariant);
 
 		display: flex;
 		flex-direction: column;
@@ -34,8 +34,8 @@
 		> div.bag-content {
 			flex-grow: 1;
 
-			border-top: 1px solid var(--color);
-			border-bottom: 1px solid var(--color);
+			border-top: 1px solid var(--primary);
+			border-bottom: 1px solid var(--primary);
 			min-height: 0px;
 		}
 
@@ -64,7 +64,7 @@
 				padding: 1em;
 
 				color: white;
-				background-color: var(--color);
+				background-color: var(--onBackground);
 
 				border: none;
 				border-radius: 1em;

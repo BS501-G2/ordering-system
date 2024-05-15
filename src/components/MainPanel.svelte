@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { titleStack } from '../components/Title.svelte';
+	import { titleStack } from '@rizzzi/svelte-commons';
 
 	const { children }: { children: (() => any) | null } = $props();
 </script>
@@ -15,7 +15,7 @@
 
 <style lang="scss">
 	div.main-panel {
-		background-color: white;
+		background-color: var(--backgroundVariant);
 		border-radius: 1em;
 
 		min-height: 100%;
@@ -38,8 +38,8 @@
 		> div {
 			flex-grow: 1;
 
-			border-top: 1px solid var(--color);
-			border-bottom: 1px solid var(--color);
+			border-top: 1px solid var(--primary);
+			border-bottom: 1px solid var(--primary);
 
 			display: grid;
 

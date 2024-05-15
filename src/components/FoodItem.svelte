@@ -2,9 +2,11 @@
 </script>
 
 <script lang="ts">
-	import { type FoodOrder, type FoodSelection, foodItems } from '$lib';
+	import { type FoodOrder, type FoodSelection, foodItems, getFoodOrderTitle, getFoodOrderPrice } from '$lib';
 
-	export let details: FoodOrder;
+	const { details }: { details: FoodOrder } = $props()
+
+	// export let details: FoodOrder;
 
 	function getName(selection: FoodSelection) {
 		const main = foodItems[selection.index];
@@ -14,12 +16,9 @@
 		return `${selection.quantity > 1 ? `${selection.quantity}x` : ''} ${mainVariant != null ? mainVariant.name : ''} ${main.name}`;
 	}
 
-	$: name = `${getName(details.main)}${details.extras.length > 0 ? ` w/ ${details.extras.map(getName).join(' & ')}` : ''}`;
+	const name = $derived(getFoodOrderTitle(details));
+	const price = $derived(getFoodOrderPrice(details));
 
-	$: price = details.extras.reduce(
-		(total, current) => total + foodItems[current.index].price * current.quantity,
-		foodItems[details.main.index].price * details.main.quantity
-	);
 </script>
 
 <div class="item">
@@ -36,7 +35,7 @@
 
 <style lang="scss">
 	div.item {
-		background-color: #ebf4e4;
+		background-color: var(--background);
 		min-width: 300px;
 		max-width: 300px;
 
@@ -82,8 +81,8 @@
 				gap: 8px;
 
 				> button {
-					background-color: var(--color);
-					color: var(--background-color);
+					background-color: var(--primary);
+					color: var(--onPrimary);
 					flex-grow: 1;
 					align-items: center;
 					border: none;
@@ -92,7 +91,7 @@
 					border-radius: 16px;
 					font-size: 20px;
 					padding: 8px 16px;
-					
+
 				}
 			}
 		}
