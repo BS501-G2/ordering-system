@@ -8,7 +8,7 @@
 			main: { index: 3, quantity: 1 },
 			extras: [
 				{ index: 11, quantity: 1 },
-				{ index: 1, quantity: 1,variantIndex: 0 }
+				{ index: 1, quantity: 1, variantIndex: 0 }
 			],
 
 			image: 'https://d1r3vc4fck3z1b.cloudfront.net/images/1635500446_mobile_variace_9hY5rqV1.jpeg'
@@ -19,7 +19,7 @@
 			main: { index: 12, quantity: 1 },
 			extras: [
 				{ index: 11, quantity: 1 },
-				{ index: 1, quantity: 1,variantIndex: 0  }
+				{ index: 1, quantity: 1, variantIndex: 0 }
 			],
 			image: 'https://d1r3vc4fck3z1b.cloudfront.net/images/1635444698_mobile_variace_P537DE5p.jpeg'
 			//4-pc. Chicken McNuggets Happy Meal
@@ -27,8 +27,9 @@
 		},
 		{
 			main: { index: 8, quantity: 1 },
-			extras: [{ index: 11, quantity: 1},
-					{ index: 1, quantity: 1,variantIndex: 0  }
+			extras: [
+				{ index: 11, quantity: 1 },
+				{ index: 1, quantity: 1, variantIndex: 0 }
 			],
 			image: 'https://d1r3vc4fck3z1b.cloudfront.net/images/1635445192_mobile_variace_jHhwBNDs.jpeg'
 			//McSpaghetti Happy Meal
@@ -38,23 +39,12 @@
 			main: { index: 10, quantity: 1 },
 			extras: [
 				{ index: 11, quantity: 1 },
-				{ index: 6, quantity: 1,variantIndex: 0  }
+				{ index: 6, quantity: 1, variantIndex: 0 }
 			],
 			image: 'https://d1r3vc4fck3z1b.cloudfront.net/images/1635446249_mobile_variace_LV53seFJ.jpeg'
 			//Burger McDo Happy Meal
 			//146.00
-		},
-		{
-			main: { index: 3, quantity: 1 },
-			extras: [
-				{ index: 11, quantity: 1 }
-			],
-
-			image: 'https://d1r3vc4fck3z1b.cloudfront.net/images/1635500446_mobile_variace_TWWYlrwX.jpeg'
-			//1-pc. Chicken McDo Happy Meal
-			//195
-		},
-
+		}
 	];
 </script>
 
