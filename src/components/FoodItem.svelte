@@ -2,9 +2,17 @@
 </script>
 
 <script lang="ts">
-	import { type FoodOrder, type FoodSelection, foodItems, getFoodOrderTitle, getFoodOrderPrice } from '$lib';
+	import {
+		type FoodOrder,
+		type FoodSelection,
+		foodItems,
+		getFoodOrderTitle,
+		getFoodOrderPrice
+	} from '$lib';
+	import { Button } from '@rizzzi/svelte-commons';
+	import OrderDialog, { pushOrderItem } from '../routes/OrderDialog.svelte';
 
-	const { details }: { details: FoodOrder } = $props()
+	const { details }: { details: FoodOrder } = $props();
 
 	// export let details: FoodOrder;
 
@@ -18,7 +26,6 @@
 
 	const name = $derived(getFoodOrderTitle(details));
 	const price = $derived(getFoodOrderPrice(details));
-
 </script>
 
 <div class="item">
@@ -28,7 +35,7 @@
 		<div class="order">
 			<p class="type"><b>P {price.toFixed(2)}</b></p>
 			<div class="divider"></div>
-			<button>Order</button>
+			<Button onClick={() => pushOrderItem(structuredClone(details))}><h2 class="order-button"><b>Order</b></h2></Button>
 		</div>
 	</div>
 </div>
@@ -44,8 +51,8 @@
 		flex-direction: column;
 
 		> img {
-			object-fit:cover;
-			height:280px;
+			object-fit: cover;
+			height: 280px;
 			width: 100%;
 			aspect-ratio: 1;
 
@@ -75,23 +82,13 @@
 
 			> div.order {
 				display: flex;
-				flex-direction:column;
+				flex-direction: column;
 				border-radius: 4px;
 				font-size: 1.15em;
 				gap: 8px;
 
-				> button {
-					background-color: var(--primary);
-					color: var(--onPrimary);
-					flex-grow: 1;
-					align-items: center;
-					border: none;
-					font-weight: bolder;
-					cursor: pointer;
-					border-radius: 16px;
-					font-size: 20px;
-					padding: 8px 16px;
-
+				h2.order-button {
+					margin: 8px;
 				}
 			}
 		}

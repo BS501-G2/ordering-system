@@ -1,11 +1,9 @@
 <script lang="ts" context="module">
-	export interface Food {}
+	import type { FoodOrder } from '$lib';
 
-	export interface OrderDialogData {}
+	let currentOrderData: FoodOrder | null = $state(null);
 
-	let currentOrderData: OrderDialogData | null = $state(null);
-
-	export function push(data: OrderDialogData) {
+	export function pushOrderItem(data: FoodOrder) {
 		if (currentOrderData !== null) {
 			throw new Error('Cannot push order dialog more than once.');
 		}
@@ -15,9 +13,33 @@
 </script>
 
 <script lang="ts">
-	import { Dialog, DialogClass } from '@rizzzi/svelte-commons';
+	import { Button, Dialog, DialogClass } from '@rizzzi/svelte-commons';
 </script>
 
 {#if currentOrderData !== null}
-	<Dialog onDismiss={() => (currentOrderData = null)} dialogClass={DialogClass.Normal} />
+	<Dialog onDismiss={() => (currentOrderData = null)} dialogClass={DialogClass.Normal}>
+		{#snippet head()}
+			<h2>Order</h2>
+		{/snippet}
+
+		{#snippet body()}
+			// TODO ORDER
+		{/snippet}
+
+		{#snippet actions()}
+			<Button
+				onClick={() => {
+					currentOrderData = null;
+				}}
+			>
+				<p class="action">Close</p>
+			</Button>
+		{/snippet}
+	</Dialog>
 {/if}
+
+<style lang="scss">
+	p.action {
+		margin: 8px;
+	}
+</style>

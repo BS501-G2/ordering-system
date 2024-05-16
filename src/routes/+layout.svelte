@@ -3,21 +3,13 @@
 	import MyBag from '../components/BagPanel.svelte';
 	import MainPanel from '../components/MainPanel.svelte';
 
-	import {
-		Dialog,
-		titleString,
-		Title,
-		registerColorScheme,
-		ColorKey,
-		ColorScheme,
-		ResetCSS
-	} from '@rizzzi/svelte-commons';
+	import { titleString, Title, ColorScheme, ResetCSS } from '@rizzzi/svelte-commons';
 	import '@fortawesome/fontawesome-free/css/all.css';
-	import { onMount } from 'svelte';
 
-	const { children } = $props();
+	import OrderDialog from './OrderDialog.svelte';
+	import type { Snippet } from 'svelte';
 
-	onMount(() => {});
+	const { children }: { children: Snippet } = $props();
 </script>
 
 <Title title="Ordering System" />
@@ -33,15 +25,7 @@
 	<MainPanel>{@render children()}</MainPanel>
 	<MyBag />
 </div>
-
-<Dialog onDismiss={() => {}}>
-	{#snippet head()}
-		<h2>Place an Order</h2>
-	{/snippet}
-	{#snippet body()}
-		<p>TEst</p>
-	{/snippet}
-</Dialog>
+<OrderDialog />
 
 <style lang="scss">
 	:root {
