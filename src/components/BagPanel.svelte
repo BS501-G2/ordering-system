@@ -1,12 +1,23 @@
 <script lang="ts" context="module">
-	import { getFoodOrderPrice, getFoodOrderTitle, numberToCurrency, type FoodOrder } from "$lib";
-	import { writable, type Writable } from "svelte/store";
+  import { getFoodOrderPrice, getFoodOrderTitle, numberToCurrency, type FoodOrder } from '$lib';
+  import { writable, type Writable } from 'svelte/store';
+  import { enabled as checkoutEnabled } from './CheckoutModal.svelte';
+  import CheckoutModal from './CheckoutModal.svelte';
 
   export const bag: Writable<FoodOrder[]> = writable([]);
 </script>
 
 <script lang="ts">
+  import { Button } from '@rizzzi/svelte-commons';
 </script>
+
+<CheckoutModal />
+
+{#snippet buttonContainer(view)}
+  <div class="button">
+    {@render view()}
+  </div>
+{/snippet}
 
 <div class="bag">
   <h2>My Bag</h2>
@@ -18,13 +29,26 @@
   <div class="bag-footer">
     <div class="total">
       <p><b>Total:</b></p>
-      <p><i>{numberToCurrency($bag.reduce((total, order) => total + getFoodOrderPrice(order), 0))}</i></p>
+      <p>
+        <i>
+          {numberToCurrency($bag.reduce((total, order) => total + getFoodOrderPrice(order), 0))}
+        </i>
+      </p>
     </div>
-    <button class="checkout-button">Proceed to Checkout</button>
+    <Button
+      container={buttonContainer}
+      onClick={() => {
+        $checkoutEnabled = true;
+      }}>Checkout</Button
+    >
   </div>
 </div>
 
 <style lang="scss">
+  div.button {
+    padding: 8px;
+  }
+
   div.bag {
     background-color: var(--backgroundVariant);
 
@@ -72,17 +96,6 @@
         > p:last-child {
           text-align: right;
         }
-      }
-
-      > button.checkout-button {
-        padding: 1em;
-
-        color: white;
-        background-color: var(--onBackground);
-
-        border: none;
-        border-radius: 1em;
-        // border-width: 1px;
       }
     }
   }

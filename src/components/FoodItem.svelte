@@ -52,6 +52,7 @@
 
     > div.item {
       background-color: var(--background);
+      color: var(--onBackground);
       min-width: 300px;
       max-width: 300px;
 

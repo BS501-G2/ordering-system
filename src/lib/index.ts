@@ -264,6 +264,8 @@ export interface FoodOrder {
   image?: string;
 
   discount?: 'senior' | 'pwd';
+
+  notes?: string;
 }
 
 export function getFoodSelectionTitle(selection: FoodSelection) {

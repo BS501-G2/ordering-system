@@ -8,6 +8,8 @@
 
   import OrderDialog from '../components/OrderDialog.svelte';
   import type { Snippet } from 'svelte';
+  import Banner from '../components/Banner.svelte';
+  import SelectionDialogHost from '../components/SelectionDialogHost.svelte';
 
   const { children }: { children: Snippet } = $props();
 </script>
@@ -25,7 +27,10 @@
   <MainPanel>{@render children()}</MainPanel>
   <MyBag />
 </div>
+
 <OrderDialog />
+<Banner />
+<SelectionDialogHost />
 
 <style lang="scss">
   :root {
