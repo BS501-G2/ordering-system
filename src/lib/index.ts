@@ -50,7 +50,7 @@ export const foodItems: FoodItem[] = [
     image: '/images/crispy-fish-fillet-sandwitch.jpg',
     category: 'meal',
     variant: [{ name: 'Double', price: 30 }],
-    canBeExtra: false
+    canBeExtra: true
   },
   {
     //3
@@ -137,7 +137,7 @@ export const foodItems: FoodItem[] = [
     image: '/images/coke.jpeg',
     category: 'meal',
     variant: [{ name: 'Regular', price: -15 }],
-    canBeExtra: true
+    canBeExtra: false
   },
   {
     //12
@@ -146,7 +146,7 @@ export const foodItems: FoodItem[] = [
     image: '/images/coke.jpeg',
     category: 'meal',
     variant: [{ name: 'Regular', price: -15 }],
-    canBeExtra: true
+    canBeExtra: false
   },
   {
     //13
@@ -192,7 +192,7 @@ export const foodItems: FoodItem[] = [
   },
   {
     //17
-    name: 'Cheeseburger Meal',
+    name: 'Cheeseburger',
     price: 60,
     image: '/images/peachee.jpg',
     variant: [

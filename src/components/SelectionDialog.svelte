@@ -6,7 +6,7 @@
     numberToCurrency,
     type FoodSelection
   } from '$lib';
-  import { Button, ButtonClass, Dialog } from '@rizzzi/svelte-commons';
+  import { Button, ButtonClass, Dialog, ViewMode, viewMode } from '@rizzzi/svelte-commons';
   import type { Writable } from 'svelte/store';
 
   const {
@@ -48,7 +48,7 @@
   {/snippet}
 
   {#snippet body()}
-    <div class="dialog">
+    <div class="dialog{$viewMode & ViewMode.Desktop ? ' desktop' : ''}">
       <table>
         <tbody>
           <tr> </tr>
@@ -97,7 +97,7 @@
 </Dialog>
 
 <style lang="scss">
-  div.dialog {
+  div.dialog.desktop {
     min-width: min(100vw - 128px, 480px);
     max-width: 480px;
   }

@@ -1,10 +1,9 @@
 <script lang="ts" context="module">
   import type { FoodSelection } from '$lib';
   import { writable, type Writable } from 'svelte/store';
+  import FoodItemList from './FoodItemList.svelte';
 
-  import { Button, Dialog } from '@rizzzi/svelte-commons';
-
-  interface ItemListInstance {
+  export interface ItemListInstance {
     search: Writable<string>;
 
     result: (data: FoodSelection | null) => void;
@@ -12,7 +11,7 @@
 
   const instances: Writable<ItemListInstance[]> = writable([]);
 
-  export function getFoodItemInstance(): Promise<FoodSelection | null> {
+  export function launchFoodItemSelector(): Promise<FoodSelection | null> {
     return new Promise((resolve) => {
       const instance: ItemListInstance = {
         search: writable(''),
@@ -33,22 +32,6 @@
   }
 </script>
 
-<script lang="ts">
-  import { ButtonClass } from '@rizzzi/svelte-commons';
-
-  const { search, result }: ItemListInstance = $props();
-</script>
-
-<Dialog onDismiss={() => result(null)}>
-  {#snippet body()}{/snippet}
-  {#snippet actions()}
-    <Button
-      onClick={() => {
-        result(null);
-      }}
-      buttonClass={ButtonClass.Background}
-    >
-      <h2 class="button">Cancel</h2>
-    </Button>
-  {/snippet}
-</Dialog>
+{#each $instances as instance}
+  <FoodItemList {...instance} />
+{/each}

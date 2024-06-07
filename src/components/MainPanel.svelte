@@ -35,7 +35,7 @@
 
     > h2 {
       margin: 0px;
-      font-weight: lighter;
+      font-weight: bolder;
     }
 
     > div.list-container {

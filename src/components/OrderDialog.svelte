@@ -29,10 +29,12 @@
     ViewMode,
     viewMode
   } from '@rizzzi/svelte-commons';
-  import { bag } from './BagPanel.svelte';
+  import { bag } from './TrayPanel.svelte';
   import { get, writable, type Writable } from 'svelte/store';
   import { editFoodSelection } from './SelectionDialogHost.svelte';
   import { type Snippet } from 'svelte';
+  import { launchFoodItemSelector } from './FoodItemListHost.svelte';
+  import { confirm } from './ConfirmationDialogHost.svelte';
 
   function addToBag() {
     if ($currentOrderData == null) {
@@ -59,7 +61,7 @@
   </div>
 {/snippet}
 
-{#snippet foodSelection(selection: FoodSelection, update: (foodSelection: FoodSelection) => void, remove: (() => void) | null)}
+{#snippet foodSelection(selection: FoodSelection, update: (foodSelection: FoodSelection) => void, remove: (() => Promise<void>) | null)}
   <div class="item">
     <img class="preview" src={foodItems[selection.index].image} alt="Food Selection Preview" />
     <div class="item-info">
@@ -92,75 +94,99 @@
   <Dialog onDismiss={() => ($currentOrderData = [])} dialogClass={DialogClass.Normal}>
     {#snippet head()}
       <div class="head">
-        <h2>Place an Order</h2>
-
         <img
           class="header-image"
           src={$currentOrderData[0].image ?? foodItems[$currentOrderData[0].main.index].image}
           alt="Main Food Selection"
         />
+
+        <h2>Place an Order</h2>
       </div>
     {/snippet}
 
     {#snippet body()}
       <div class="dialog{$viewMode & ViewMode.Desktop ? ' desktop' : ''}">
-        <table>
-          <tbody>
-            <tr>
-              <th>Food Item</th>
-              <td
-                >{@render foodSelection(
-                  $currentOrderData[0].main,
-                  (selection) => {
-                    currentOrderData.update((currentOrderData) => {
-                      currentOrderData[0].main = selection;
-                      return currentOrderData;
-                    });
-                  },
-                  null
-                )}</td
-              >
-            </tr>
-            <tr>
-              <th>Extra Items</th>
-              <td>
-                <div class="extra-items">
-                  {#each $currentOrderData[0].extras ?? [] as extra, index}
-                    {@render foodSelection(extra, (selection) => {
-                    currentOrderData.update((currentOrderData) => {
-                      currentOrderData[0].extras![index] = selection;
-                      return currentOrderData;
-                    });
-                  }, () => {
-                    currentOrderData.update((currentOrderData) => {
-                      currentOrderData[0].extras?.splice(index, 1);
-                      return currentOrderData;
-                    });
-                  })}
-                  {/each}
+        <div class="divider"></div>
+        <div class="fields">
+          <table>
+            <tbody>
+              <tr>
+                <th>Food Item</th>
+                <td
+                  >{@render foodSelection(
+                    $currentOrderData[0].main,
+                    (selection) => {
+                      currentOrderData.update((currentOrderData) => {
+                        currentOrderData[0].main = selection;
+                        return currentOrderData;
+                      });
+                    },
+                    null
+                  )}</td
+                >
+              </tr>
+              {#if !foodItems[$currentOrderData[0].main.index].canBeExtra || ($currentOrderData[0].extras?.length ?? 0) > 0}
+                <tr>
+                  <th>Extra Items</th>
+                  <td>
+                    <div class="extra-items">
+                      {#each $currentOrderData[0].extras ?? [] as extra, index}
+                        {@render foodSelection(extra, (selection) => {
+                          currentOrderData.update((currentOrderData) => {
+                            currentOrderData[0].extras![index] = selection;
+                            return currentOrderData;
+                          });
+                        }, async () => {
+                          if (await confirm('Are you sure you want to remove this extra item?')) {
+                            currentOrderData.update((currentOrderData) => {
+                              currentOrderData[0].extras?.splice(index, 1);
+                              return currentOrderData;
+                            });
+                          }
 
-                  <Button container={actionContainer} onClick={() => {}}>
-                    Add Extra
-                  </Button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <th>Notes</th>
-              <td>
-                <textarea
-                  class="notes"
-                  onchange={({ currentTarget }) =>
-                    currentOrderData.update((currentOrderData) => {
-                      currentOrderData[0].notes = currentTarget.value;
-                      return currentOrderData;
-                    })}
-                  value={$currentOrderData[0].notes ?? ''}
-                ></textarea>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                        })}
+                      {/each}
+
+                      {#if !foodItems[$currentOrderData[0].main.index].canBeExtra}
+                        <Button
+                          container={actionContainer}
+                          onClick={async () => {
+                            const selection = await launchFoodItemSelector();
+
+                            if (selection == null) {
+                              return;
+                            }
+
+                            currentOrderData.update((currentOrderData) => {
+                              currentOrderData[0].extras ??= [];
+                              currentOrderData[0].extras.push(selection);
+                              return currentOrderData;
+                            });
+                          }}>Add Extra</Button
+                        >
+                      {/if}
+                    </div>
+                  </td>
+                </tr>
+              {/if}
+              <tr>
+                <th>Notes</th>
+                <td>
+                  <textarea
+                    class="notes"
+                    onchange={({ currentTarget }) =>
+                      currentOrderData.update((currentOrderData) => {
+                        currentOrderData[0].notes = currentTarget.value;
+                        return currentOrderData;
+                      })}
+                    value={$currentOrderData[0].notes ?? ''}
+                  ></textarea>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="divider"></div>
       </div>
     {/snippet}
 
@@ -170,7 +196,7 @@
         <b>{numberToCurrency(getFoodOrderPrice($currentOrderData[0]))}</b>
       </p>
       <div class="spacer"></div>
-      <Button onClick={addToBag} container={actionContainer}>Add</Button>
+      <Button onClick={addToBag} container={actionContainer}>Add to Tray</Button>
       <Button onClick={cancel} container={actionContainer} buttonClass={ButtonClass.Background}>
         Cancel
       </Button>
@@ -186,10 +212,10 @@
   div.dialog {
     min-height: 0px;
 
-    overflow: hidden auto;
+    display: flex;
+    flex-direction: column;
 
-    border-top: solid 1px var(--primary);
-    border-bottom: solid 1px var(--primary);
+    overflow: hidden auto;
   }
 
   div.dialog.desktop {
@@ -203,7 +229,7 @@
   div.head {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    gap: 8px;
 
     > img.header-image {
       object-fit: cover;
@@ -213,26 +239,38 @@
     }
   }
 
-  table {
-    min-width: 100%;
-    box-sizing: border-box;
+  div.divider {
+    min-height: 1px;
+    max-height: 1px;
+    width: 100%;
+    background-color: var(--onBackgroundVariant);
+  }
 
-    > tbody > tr {
-      > th,
-      > td {
-        box-sizing: border-box;
-        padding: 8px;
+  div.fields {
+    overflow: auto;
+    flex-grow: 1;
 
-        min-width: 50%;
-        max-width: 50%;
-      }
+    > table {
+      min-width: 100%;
+      box-sizing: border-box;
 
-      > th {
-        text-align: start;
-      }
+      > tbody > tr {
+        > th,
+        > td {
+          box-sizing: border-box;
+          padding: 8px;
 
-      > td {
-        text-align: end;
+          min-width: 50%;
+          max-width: 50%;
+        }
+
+        > th {
+          text-align: start;
+        }
+
+        > td {
+          text-align: end;
+        }
       }
     }
   }

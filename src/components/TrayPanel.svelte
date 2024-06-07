@@ -1,14 +1,16 @@
 <script lang="ts" context="module">
   import { getFoodOrderPrice, getFoodOrderTitle, numberToCurrency, type FoodOrder } from '$lib';
   import { writable, type Writable } from 'svelte/store';
-  import { enabled as checkoutEnabled } from './CheckoutModal.svelte';
-  import CheckoutModal from './CheckoutModal.svelte';
+  import { enabled as checkoutEnabled } from './CheckoutDialog.svelte';
+  import CheckoutModal from './CheckoutDialog.svelte';
 
   export const bag: Writable<FoodOrder[]> = writable([]);
 </script>
 
 <script lang="ts">
   import { Button } from '@rizzzi/svelte-commons';
+  import TrayPanelEntry from './TrayPanelEntry.svelte';
+  import { confirm } from './ConfirmationDialogHost.svelte';
 </script>
 
 <CheckoutModal />
@@ -20,10 +22,20 @@
 {/snippet}
 
 <div class="bag">
-  <h2>My Bag</h2>
+  <h2>My Tray</h2>
   <div class="bag-content">
-    {#each $bag as order}
-      <p>{getFoodOrderTitle(order)}</p>
+    {#each $bag as order, index}
+      <TrayPanelEntry
+        {order}
+        onRemove={async () => {
+          if (await confirm(`Are you sure you want to remove ${getFoodOrderTitle(order)}?`)) {
+            bag.update((bag) => {
+              bag.splice(index, 1);
+              return bag;
+            });
+          }
+        }}
+      />
     {/each}
   </div>
   <div class="bag-footer">
@@ -39,7 +51,7 @@
       container={buttonContainer}
       onClick={() => {
         $checkoutEnabled = true;
-      }}>Checkout</Button
+      }}><h2>Proceed to Checkout</h2></Button
     >
   </div>
 </div>
@@ -55,8 +67,8 @@
     display: flex;
     flex-direction: column;
 
-    min-width: 320px;
-    max-width: 320px;
+    min-width: 400px;
+    max-width: 400px;
     box-sizing: border-box;
 
     border-radius: 1em;
@@ -66,7 +78,7 @@
       margin: 0px;
       padding: 16px;
       font-size: 24px;
-      font-weight: lighter;
+      font-weight: bolder;
     }
 
     > div.bag-content {
@@ -75,6 +87,14 @@
       border-top: 1px solid var(--primary);
       border-bottom: 1px solid var(--primary);
       min-height: 0px;
+
+      display: flex;
+      flex-direction: column;
+
+      gap: 16px;
+      padding: 16px;
+
+      overflow: hidden auto;
     }
 
     > div.bag-footer {

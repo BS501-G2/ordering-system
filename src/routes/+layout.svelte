@@ -1,6 +1,6 @@
 <script lang="ts">
   import NavigationPanel from '../components/NavigationPanel.svelte';
-  import MyBag from '../components/BagPanel.svelte';
+  import MyBag from '../components/TrayPanel.svelte';
   import MainPanel from '../components/MainPanel.svelte';
 
   import { titleString, Title, ColorScheme, ResetCSS } from '@rizzzi/svelte-commons';
@@ -10,6 +10,8 @@
   import type { Snippet } from 'svelte';
   import Banner from '../components/Banner.svelte';
   import SelectionDialogHost from '../components/SelectionDialogHost.svelte';
+  import FoodItemListHost from '../components/FoodItemListHost.svelte';
+    import ConfirmationDialogHost from '../components/ConfirmationDialogHost.svelte';
 
   const { children }: { children: Snippet } = $props();
 </script>
@@ -29,8 +31,10 @@
 </div>
 
 <OrderDialog />
-<Banner />
+<FoodItemListHost />
 <SelectionDialogHost />
+<Banner />
+<ConfirmationDialogHost />
 
 <style lang="scss">
   :root {
