@@ -27,6 +27,9 @@
     </Button>
   </div>
 </div>
+{#if order.notes}
+  <p class="notes"><b>Notes:</b> <span>{order.notes}</span></p>
+{/if}
 
 <style lang="scss">
   div.button {

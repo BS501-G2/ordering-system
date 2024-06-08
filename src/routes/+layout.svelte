@@ -49,6 +49,8 @@
     background-color: var(--background);
     color: var(--onBackground);
     margin: 0px;
+
+    user-select: none;
   }
 
   div.main {

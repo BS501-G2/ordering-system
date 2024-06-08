@@ -1,8 +1,8 @@
 <script lang="ts" context="module">
   import { getFoodOrderPrice, getFoodOrderTitle, numberToCurrency, type FoodOrder } from '$lib';
   import { writable, type Writable } from 'svelte/store';
-  import { enabled as checkoutEnabled } from './CheckoutDialog.svelte';
-  import CheckoutModal from './CheckoutDialog.svelte';
+
+  import CheckoutDialog from './CheckoutDialog.svelte';
 
   export const bag: Writable<FoodOrder[]> = writable([]);
 </script>
@@ -11,9 +11,13 @@
   import { Button } from '@rizzzi/svelte-commons';
   import TrayPanelEntry from './TrayPanelEntry.svelte';
   import { confirm } from './ConfirmationDialogHost.svelte';
+
+  const checkoutEnabled: Writable<boolean> = writable(false);
 </script>
 
-<CheckoutModal />
+{#if $checkoutEnabled}
+  <CheckoutDialog onClose={() => ($checkoutEnabled = false)} />
+{/if}
 
 {#snippet buttonContainer(view)}
   <div class="button">
