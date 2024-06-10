@@ -6,7 +6,38 @@ export interface FoodVariant {
 }
 
 export type FoodItemType = 'meal' | 'rice' | 'burger' | 'fries' | 'drink';
-export type FoodOrderDiscountType = 'senior' | 'pwd';
+
+export interface PaymentMethod {
+  name: string;
+  image: string;
+}
+
+export const paymentMethods: PaymentMethod[] = [
+  {
+    name: 'Credit Card',
+    image: '/favicon.png'
+  },
+  {
+    name: 'GCash',
+    image: '/favicon.png'
+  },
+  {
+    name: 'Cash',
+    image: '/favicon.png'
+  }
+];
+
+export interface Discount {
+  name: string;
+  fraction: number;
+}
+
+export const discounts: Discount[] = [
+  {
+    name: 'Senior Discount',
+    fraction: 0.2
+  }
+];
 
 export interface FoodItem {
   name: string;
@@ -262,8 +293,6 @@ export interface FoodOrder {
   main: FoodSelection;
   extras?: FoodSelection[];
   image?: string;
-
-  discount?: 'senior' | 'pwd';
 
   notes?: string;
 }

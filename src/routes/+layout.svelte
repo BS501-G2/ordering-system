@@ -11,7 +11,7 @@
   import Banner from '../components/Banner.svelte';
   import SelectionDialogHost from '../components/SelectionDialogHost.svelte';
   import FoodItemListHost from '../components/FoodItemListHost.svelte';
-    import ConfirmationDialogHost from '../components/ConfirmationDialogHost.svelte';
+  import ConfirmationDialogHost from '../components/ConfirmationDialogHost.svelte';
 
   const { children }: { children: Snippet } = $props();
 </script>

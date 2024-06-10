@@ -9,47 +9,64 @@
   } from '@rizzzi/svelte-commons';
   import { type Snippet } from 'svelte';
   import { writable, type Writable } from 'svelte/store';
+  import { persisted } from 'svelte-persisted-store'
 
-  const number: Writable<number> = writable(0);
+  export interface CheckoutState {
+    paymentMethod?: PaymentMethod;
+    discount?: Discount;
+  }
 </script>
 
 <script lang="ts">
+  import CheckoutDialogPaymentMethodTab from './CheckoutDialogPaymentMethodTab.svelte';
+  import type { Discount, PaymentMethod } from '$lib';
+  import CheckoutDialogDiscountTab from './CheckoutDialogConfirmationTab.svelte';
+
   const { onClose }: { onClose: () => void } = $props();
-  const tabs: TabItem<{ onCall: () => void }>[] = [
+  const tabs: TabItem<{ onCall: () => void; checkBeforeLeave: () => boolean }>[] = [
     {
       name: 'Payment Method',
       view: paymentMethodTab,
-      onCall() {}
+      onCall() {},
+      checkBeforeLeave() {
+        console.log($state.paymentMethod);
+        return $state.paymentMethod != null;
+      }
     },
     {
-      name: 'Discount',
-      view: discountTab,
-      onCall() {}
-    },
-    {
-      name: 'Confirmation',
+      name: 'Confirm Order',
       view: confirmationTab,
-      onCall() {}
+      onCall() {},
+      checkBeforeLeave() {
+        return true;
+      }
     },
     {
-      name: 'Receipt & Feedback',
+      name: 'Place Older',
       view: receiptTab,
-      onCall() {
+      onCall() {2
         $number += Math.random() * 10;
+      },
+      checkBeforeLeave() {
+        return true;
       }
     }
   ];
 
   const tabId = createTabId(tabs);
+
+  const number: Writable<number> = persisted('queue-number', 0);
+
+  const state: Writable<CheckoutState> = writable({});
 </script>
 
 {#snippet paymentMethodTab()}
-  <h1>Please Select Your Payment Method</h1>
+  <CheckoutDialogPaymentMethodTab {state} />
 {/snippet}
 
-{#snippet discountTab()}{/snippet}
-
-{#snippet confirmationTab()}{/snippet}
+{#snippet confirmationTab()}
+  <CheckoutDialogDiscountTab {state} />
+{/snippet}
 
 {#snippet receiptTab()}
   <div class="receipt">
@@ -90,7 +107,7 @@
     <Tab id={tabId}>
       {#snippet host(tabs, currentIndex, setTab)}
         <div class="bar">
-          {#if currentIndex > 0}
+          {#if currentIndex > 0 && (currentIndex !== tabs.length - 1)}
             <Button
               onClick={() => {
                 tabs[currentIndex - 1].onCall();
@@ -113,20 +130,31 @@
             {/each}
           </div>
           {#if currentIndex < tabs.length - 1}
+            {#key $state}
+              <Button
+                onClick={() => {
+                  if (!tabs[currentIndex].checkBeforeLeave()) {
+                    throw new Error('Please perform the required action.');
+                  }
+                  tabs[currentIndex + 1].onCall();
+                  setTab(currentIndex + 1);
+                }}
+                container={buttonContainer}
+              >
+                <div class="button-name">
+                  <p>{tabs[currentIndex + 1].name}</p>
+                  <i class="fa-solid fa-chevron-right"></i>
+                </div>
+              </Button>
+            {/key}
+          {:else}
             <Button
               onClick={() => {
-                tabs[currentIndex + 1].onCall();
-                setTab(currentIndex + 1);
+                onClose();
+                window.location.reload();
               }}
               container={buttonContainer}
             >
-              <div class="button-name">
-                <p>{tabs[currentIndex + 1].name}</p>
-                <i class="fa-solid fa-chevron-right"></i>
-              </div>
-            </Button>
-          {:else}
-            <Button onClick={onClose} container={buttonContainer}>
               <div class="button-name">
                 <p>Done</p>
                 <i class="fa-solid fa-check"></i>
@@ -145,8 +173,12 @@
     display: flex;
     flex-direction: column;
 
-    min-width: min(768px, 100vw - 128px);
-    min-height: min(720px, 100vh - 128px);
+    min-width: min(1280px, 100vw - 256px);
+    min-height: min(720px, 100vh - 256px);
+    max-width: min(1280px, 100vw - 256px);
+    max-height: min(720px, 100vh - 256px);
+
+    overflow: hidden;
   }
 
   div.bar {

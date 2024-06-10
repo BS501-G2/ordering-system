@@ -21,7 +21,7 @@
 
 {#snippet buttonContainer(view)}
   <div class="button">
-    {@render view()}
+    <h2>{@render view()}</h2>
   </div>
 {/snippet}
 
@@ -51,12 +51,18 @@
         </i>
       </p>
     </div>
-    <Button
-      container={buttonContainer}
-      onClick={() => {
-        $checkoutEnabled = true;
-      }}><h2>Proceed to Checkout</h2></Button
-    >
+    {#key $bag}
+      <Button
+        container={buttonContainer}
+        onClick={() => {
+          if ($bag.length === 0) {
+            throw new Error('Please order something.');
+          }
+
+          $checkoutEnabled = true;
+        }}>Proceed to Checkout</Button
+      >
+    {/key}
   </div>
 </div>
 
@@ -111,6 +117,8 @@
       > div.total {
         display: flex;
         flex-direction: row;
+
+        font-size: 1.5em;
 
         > p {
           flex-grow: 1;

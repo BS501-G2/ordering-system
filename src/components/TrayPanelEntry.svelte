@@ -2,7 +2,7 @@
   import { Button, ButtonClass } from '@rizzzi/svelte-commons';
   import { getFoodOrderPrice, getFoodOrderTitle, numberToCurrency, type FoodOrder } from '$lib';
 
-  const { order, onRemove }: { order: FoodOrder; onRemove: () => Promise<void> } = $props();
+  const { order, onRemove }: { order: FoodOrder; onRemove?: () => Promise<void> } = $props();
 </script>
 
 {#snippet buttonContainer(view)}
@@ -17,16 +17,15 @@
   <p class="name">{getFoodOrderTitle(order)}</p>
   <p class="prize">{numberToCurrency(getFoodOrderPrice(order))}</p>
 
-  <div class="actions">
-    <Button
-      container={buttonContainer}
-      buttonClass={ButtonClass.Transparent}
-      onClick={onRemove}
-    >
-      <i class="fa-solid fa-x"></i>
-    </Button>
-  </div>
+  {#if onRemove}
+    <div class="actions">
+      <Button container={buttonContainer} buttonClass={ButtonClass.Transparent} onClick={onRemove}>
+        <i class="fa-solid fa-x"></i>
+      </Button>
+    </div>
+  {/if}
 </div>
+
 {#if order.notes}
   <p class="notes"><b>Notes:</b> <span>{order.notes}</span></p>
 {/if}

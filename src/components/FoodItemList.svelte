@@ -38,30 +38,34 @@
     <div class="body">
       <div class="divider"></div>
       <div class="food-item-list">
-        {#each $filteredFoodItems as [index, foodItem]}
-          <Button
-            onClick={async () => {
-              const foodSelection = {
-                index: index,
-                quantity: 1
-              };
+        <div class="food-item-grid">
+          {#each $filteredFoodItems as [index, foodItem]}
+            <Button
+              onClick={async () => {
+                const foodSelection = {
+                  index: index,
+                  quantity: 1
+                };
 
-              try {
-                result(await editFoodSelection(foodSelection));
-              } catch {}
-            }}
-            buttonClass={ButtonClass.Transparent}
-            container={buttonContainer}
-            outline={false}
-          >
-            <div class="food-item">
-              <img class="preview" src={foodItem.image} alt="Food Selection Preview" />
+                try {
+                  result(await editFoodSelection(foodSelection));
+                } catch {}
+              }}
+              buttonClass={ButtonClass.Transparent}
+              container={buttonContainer}
+              outline={false}
+            >
+              <div class="food-item">
+                <img class="preview" src={foodItem.image} alt="Food Selection Preview" />
 
-              <p class="item-name">{foodItem.name}</p>
-              <p class="item-price">{numberToCurrency(foodItem.price)}</p>
-            </div>
-          </Button>
-        {/each}
+                <div class="item-info">
+                  <p class="item-name">{foodItem.name}</p>
+                  <p class="item-price">{numberToCurrency(foodItem.price)}</p>
+                </div>
+              </div>
+            </Button>
+          {/each}
+        </div>
       </div>
       <div class="divider"></div>
     </div>
@@ -125,26 +129,27 @@
     flex-grow: 1;
   }
 
+  div.food-item-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(128px, 1fr));
+    gap: 8px;
+  }
+
   div.food-item {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     gap: 8px;
 
     > img.preview {
-      min-width: 2em;
-      max-width: 2em;
+      min-width: 128px;
+      max-width: 128px;
       aspect-ratio: 1;
     }
 
-    > p.item-name {
+    p.item-name {
       flex-grow: 1;
-      text-align: start;
       font-weight: bolder;
-    }
-
-    > p.item-price {
-      text-align: end;
     }
   }
 </style>
