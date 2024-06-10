@@ -6,9 +6,8 @@
   import { type Snippet } from 'svelte';
   import { editFoodSelection } from './SelectionDialogHost.svelte';
 
-  const { search, result }: ItemListInstance = $props();
+  const { search, exceptions, result }: ItemListInstance = $props();
 
-  const selected: Writable<FoodSelection | null> = writable(null);
   const filteredFoodItems = derived(search, (search) =>
     foodItems
       .map<[index: number, foodItem: FoodItem]>((foodItem, index) => {
@@ -39,7 +38,7 @@
       <div class="divider"></div>
       <div class="food-item-list">
         <div class="food-item-grid">
-          {#each $filteredFoodItems as [index, foodItem]}
+          {#each $filteredFoodItems.filter( ([, value]) => !exceptions.includes(value) ) as [index, foodItem]}
             <Button
               onClick={async () => {
                 const foodSelection = {

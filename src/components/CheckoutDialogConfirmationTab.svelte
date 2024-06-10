@@ -29,14 +29,14 @@
           </tr>
           {#if $dialogState.discount}
             <tr>
-              <th>Discount Price</th>
+              <th>Discount Percentage</th>
               <td>
-                -{numberToCurrency($dialogState.discount.fraction * total)} ({$dialogState.discount
-                  .fraction * 100}%)
+                {$dialogState.discount
+                  .fraction * 100}% (-{numberToCurrency($dialogState.discount.fraction * total)})
               </td>
             </tr>
             <tr>
-              <th>Final Price</th>
+              <th>Discount Price</th>
               <td>{numberToCurrency(total - $dialogState.discount.fraction * total)}</td>
             </tr>
           {/if}

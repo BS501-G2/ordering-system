@@ -151,7 +151,7 @@
                         <Button
                           container={actionContainer}
                           onClick={async () => {
-                            const selection = await launchFoodItemSelector();
+                            const selection = await launchFoodItemSelector(($currentOrderData[0].extras ?? []).map((selection) => foodItems[selection.index]));
 
                             if (selection == null) {
                               return;

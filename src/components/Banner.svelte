@@ -10,7 +10,6 @@
     DialogClass,
     Tab,
     createTabId,
-    type TabId,
     type TabItem
   } from '@rizzzi/svelte-commons';
   import type { Snippet } from 'svelte';
@@ -18,12 +17,10 @@
   import { fade } from 'svelte/transition';
 
   const images: string[] = [
-    '/favicon.png',
-    '/favicon.png',
-    '/favicon.png',
-    '/favicon.png',
-    '/favicon.png',
-    '/favicon.png'
+    '/images/banners/cardi-b-offset-mcdonalds-meal-superbowl-021023-1-bbfdd30e4ad948008b2ae2ccae334c88.jpg',
+    '/images/banners/qt1pq58r827iyyvugjfr.jpg',
+    '/images/banners/McDonalds-Crave--Claim-GMA_cover_photo_2022_08_31_18_48_14.jpg',
+    '/images/banners/McDonalds-Best-Tasting-Chicken-McDo-and-World-Famous-Fries.jpg'
   ];
   const tabs: TabItem<{ image: string }>[] = images.map((image) => ({
     name: 'Image',
@@ -36,7 +33,9 @@
 </script>
 
 {#snippet imageView(setTab: (index: number) => void, tab: TabItem, tabIndex: number)}
-  <img class="banner" alt="banner" src={tab.image} transition:fade={{ duration: 500 }} />
+  {#key tab.image}
+    <img class="banner" alt="banner" src={tab.image} transition:fade|global={{ duration: 500 }} />
+  {/key}
 {/snippet}
 
 {#snippet buttonContainer(view)}
@@ -126,7 +125,13 @@
   }
 
   img.banner {
-    object-fit: cover;
+    min-width: calc(100vw - 128px);
+    min-height: calc(100vh - 128px);
+    max-width: calc(100vw - 128px);
+    max-height: calc(100vh - 128px);
+
+    object-fit: contain;
+    object-position: center;
 
     flex-grow: 1;
   }

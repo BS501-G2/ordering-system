@@ -9,7 +9,7 @@
   } from '@rizzzi/svelte-commons';
   import { type Snippet } from 'svelte';
   import { writable, type Writable } from 'svelte/store';
-  import { persisted } from 'svelte-persisted-store'
+  import { persisted } from 'svelte-persisted-store';
 
   export interface CheckoutState {
     paymentMethod?: PaymentMethod;
@@ -23,35 +23,38 @@
   import CheckoutDialogDiscountTab from './CheckoutDialogConfirmationTab.svelte';
 
   const { onClose }: { onClose: () => void } = $props();
-  const tabs: TabItem<{ onCall: () => void; checkBeforeLeave: () => boolean }>[] = [
-    {
-      name: 'Payment Method',
-      view: paymentMethodTab,
-      onCall() {},
-      checkBeforeLeave() {
-        console.log($state.paymentMethod);
-        return $state.paymentMethod != null;
-      }
-    },
-    {
-      name: 'Confirm Order',
-      view: confirmationTab,
-      onCall() {},
-      checkBeforeLeave() {
-        return true;
-      }
-    },
-    {
-      name: 'Place Older',
-      view: receiptTab,
-      onCall() {2
-        $number += Math.random() * 10;
+  const tabs: TabItem<{ onCall: () => void; checkBeforeLeave: () => boolean; message?: string }>[] =
+    [
+      {
+        name: 'Payment Method',
+        view: paymentMethodTab,
+        onCall() {},
+        checkBeforeLeave() {
+          console.log($state.paymentMethod);
+          return $state.paymentMethod != null;
+        }
       },
-      checkBeforeLeave() {
-        return true;
+      {
+        name: 'Confirm Order',
+        view: confirmationTab,
+        onCall() {},
+        checkBeforeLeave() {
+          return true;
+        }
+      },
+      {
+        name: 'Place Older',
+        message: 'Order Placed',
+        view: receiptTab,
+        onCall() {
+          2;
+          $number += Math.random() * 10;
+        },
+        checkBeforeLeave() {
+          return true;
+        }
       }
-    }
-  ];
+    ];
 
   const tabId = createTabId(tabs);
 
@@ -92,7 +95,7 @@
   {#snippet head()}
     <Tab id={tabId}>
       {#snippet host(tabs, currentIndex)}
-        <h2>{tabs[currentIndex].name}</h2>
+        <h2>{tabs[currentIndex].message ?? tabs[currentIndex].name}</h2>
       {/snippet}
 
       {#snippet view()}{/snippet}
@@ -107,7 +110,7 @@
     <Tab id={tabId}>
       {#snippet host(tabs, currentIndex, setTab)}
         <div class="bar">
-          {#if currentIndex > 0 && (currentIndex !== tabs.length - 1)}
+          {#if currentIndex > 0 && currentIndex !== tabs.length - 1}
             <Button
               onClick={() => {
                 tabs[currentIndex - 1].onCall();
@@ -125,7 +128,7 @@
           <div class="indicator">
             {#each tabs as tab, index}
               <div class="indicator-item" class:active={index === currentIndex}>
-                {tab.name}
+                {tab.message ?? tab.name}
               </div>
             {/each}
           </div>

@@ -4,26 +4,14 @@
 <script lang="ts">
   import {
     type FoodOrder,
-    type FoodSelection,
-    foodItems,
     getFoodOrderTitle,
     getFoodOrderPrice,
     numberToCurrency
   } from '$lib';
   import { Button } from '@rizzzi/svelte-commons';
-  import OrderDialog, { pushOrderItem } from './OrderDialog.svelte';
+  import { pushOrderItem } from './OrderDialog.svelte';
 
   const { details }: { details: FoodOrder } = $props();
-
-  // export let details: FoodOrder;
-
-  function getName(selection: FoodSelection) {
-    const main = foodItems[selection.index];
-    const mainVariant =
-      selection.variantIndex != null ? main.variant[selection.variantIndex] : null;
-
-    return `${selection.quantity > 1 ? `${selection.quantity}x` : ''} ${mainVariant != null ? mainVariant.name : ''} ${main.name}`;
-  }
 
   const name = $derived(getFoodOrderTitle(details));
   const price = $derived(getFoodOrderPrice(details));
