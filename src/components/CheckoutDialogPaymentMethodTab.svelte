@@ -11,7 +11,7 @@
 </script>
 
 <div class="list">
-<h2>Please select payment method.</h2>
+  <h2>Please select payment method.</h2>
   {#each paymentMethods as paymentMethod}
     <Button
       buttonClass={$checkoutState.paymentMethod === paymentMethod
@@ -26,7 +26,9 @@
       }}
     >
       <div class="item">
-        <img src={paymentMethod.image} alt={paymentMethod.name} />
+        {#if paymentMethod.image != null}
+          <img src={paymentMethod.image} alt={paymentMethod.name} />
+        {/if}
 
         <p>{paymentMethod.name}</p>
       </div>

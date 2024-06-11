@@ -52,7 +52,7 @@
         gap: 1em;
         padding: 1em 0px;
 
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(192px, 1fr));
       }
     }
   }

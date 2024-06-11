@@ -9,21 +9,20 @@ export type FoodItemType = 'meal' | 'rice' | 'burger' | 'fries' | 'drink';
 
 export interface PaymentMethod {
   name: string;
-  image: string;
+  image?: string;
 }
 
 export const paymentMethods: PaymentMethod[] = [
   {
     name: 'Credit Card',
-    image: '/favicon.png'
+    image: '/images/payment/360_F_86218023_eACLc24H8hg5dscvBxGrPEYnv2bpEpNj.webp'
   },
   {
     name: 'GCash',
-    image: '/favicon.png'
+    image: '/images/payment/webimage-41C3A1F4-724A-45AB-B9081EE184CD5A7F.webp'
   },
   {
-    name: 'Cash',
-    image: '/favicon.png'
+    name: 'Cash'
   }
 ];
 

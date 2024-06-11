@@ -41,8 +41,8 @@
     > div.item {
       background-color: var(--background);
       color: var(--onBackground);
-      min-width: 300px;
-      max-width: 300px;
+      min-width: 192px;
+      max-width: 192px;
 
       border-radius: 8px;
       display: flex;
@@ -50,7 +50,7 @@
 
       > img {
         object-fit: cover;
-        height: 280px;
+        height: 192px;
         width: 100%;
         aspect-ratio: 1;
 
@@ -70,9 +70,6 @@
 
         > p.name {
           flex-grow: 1;
-
-          min-height: 2.45em;
-          max-height: 2.45em;
 
           overflow: hidden;
           text-overflow: ellipsis;
