@@ -5,18 +5,18 @@
 
   export interface ItemListInstance {
     search: Writable<string>;
-    exceptions: FoodItem[];
+    exemptions: FoodItem[];
 
     result: (data: FoodSelection | null) => void;
   }
 
   const instances: Writable<ItemListInstance[]> = writable([]);
 
-  export function launchFoodItemSelector(exceptions: FoodItem[]): Promise<FoodSelection | null> {
+  export function launchFoodItemSelector(exemptions: FoodItem[]): Promise<FoodSelection | null> {
     return new Promise((resolve) => {
       const instance: ItemListInstance = {
         search: writable(''),
-        exceptions,
+        exemptions,
         result: (data) => {
           resolve(data);
           instances.update((items) => {

@@ -51,7 +51,7 @@ export interface FoodItem {
 export const foodItems: FoodItem[] = [
   {
     //0
-    name: 'PeaChee Fruit Fizz',
+    name: 'PeaChee Fruit Fizz',//done
     price: 100,
     image: '/images/peachee.jpg',
     variant: [
@@ -65,7 +65,7 @@ export const foodItems: FoodItem[] = [
     //1
     name: 'Fries',
     price: 60,
-    image: '/images/fries.jpeg',
+    image: '/images/fries.jpeg',//done
     variant: [
       { name: 'Small', price: -30 },
       { name: 'Large', price: 50 }
@@ -77,7 +77,7 @@ export const foodItems: FoodItem[] = [
     //2
     name: 'Crispy Fish Fillet Sandwich',
     price: 180,
-    image: '/images/crispy-fish-fillet-sandwitch.jpg',
+    image: '/images/crispy-fish-fillet-sandwitch.jpg',//done
     category: 'meal',
     variant: [{ name: 'Double', price: 30 }],
     canBeExtra: true
@@ -86,7 +86,7 @@ export const foodItems: FoodItem[] = [
     //3
     name: 'Chicken McDo',
     price: 75,
-    image: '/images/chicken.jpeg',
+    image: '/images/chicken.jpeg',//done
     category: 'meal',
     variant: [{ name: 'Spicy', price: 6 }],
     canBeExtra: false
@@ -95,7 +95,7 @@ export const foodItems: FoodItem[] = [
     //4
     name: 'Rice',
     price: 35,
-    image: '/images/rice.jpg',
+    image: '/images/rice.jpg',//done
     variant: [{ name: 'Small', price: -15 }],
     category: 'rice',
     canBeExtra: true
@@ -113,7 +113,7 @@ export const foodItems: FoodItem[] = [
     //6
     name: 'Coke McFloat',
     price: 79,
-    image: '/images/coke-mcfloat.jpg',
+    image: '/images/coke-mcfloat.jpg',//done
     category: 'drink',
     variant: [
       { name: 'Small', price: -30 },
@@ -125,7 +125,7 @@ export const foodItems: FoodItem[] = [
     //7
     name: 'Coke',
     price: 60,
-    image: '/images/coke.jpeg',
+    image: '/images/coke.jpeg',//done
     category: 'drink',
     variant: [
       { name: 'Small', price: -30 },
@@ -137,7 +137,7 @@ export const foodItems: FoodItem[] = [
     //8
     name: 'McSpaghetti',
     price: 59,
-    image: '/images/coke.jpeg',
+    image: '/images/McSpaghetti.jpeg',//done
     category: 'meal',
     variant: [{ name: 'Regular', price: -15 }],
     canBeExtra: true
@@ -146,7 +146,7 @@ export const foodItems: FoodItem[] = [
     //9
     name: 'McCrispy Chicken Fillet Ala King',
     price: 79,
-    image: '/images/coke.jpeg',
+    image: '/images/McCrispyChickenAlaKing.jpeg',
     category: 'meal',
     variant: [{ name: 'Regular', price: -15 }],
     canBeExtra: true
@@ -155,7 +155,7 @@ export const foodItems: FoodItem[] = [
     //10
     name: 'Burger McDo',
     price: 44,
-    image: '/images/coke.jpeg',
+    image: '/images/BurgerMcdo.jpeg',
     category: 'burger',
     variant: [{ name: 'Regular', price: -15 }],
     canBeExtra: true
@@ -164,7 +164,7 @@ export const foodItems: FoodItem[] = [
     //11
     name: 'Happy Meal',
     price: 40,
-    image: '/images/coke.jpeg',
+    image: '/images/HappyMeal.jpeg',
     category: 'meal',
     variant: [{ name: 'Regular', price: -15 }],
     canBeExtra: false
@@ -173,7 +173,7 @@ export const foodItems: FoodItem[] = [
     //12
     name: '4-pc. Chicken McNuggets',
     price: 102,
-    image: '/images/coke.jpeg',
+    image: '/images/McNuggets.png',
     category: 'meal',
     variant: [{ name: 'Regular', price: -15 }],
     canBeExtra: false
@@ -182,7 +182,7 @@ export const foodItems: FoodItem[] = [
     //13
     name: 'BFF Fries',
     price: 169,
-    image: '/images/coke.jpeg',
+    image: '/images/BFFfries.jpeg',
     category: 'meal',
     variant: [{ name: 'Regular', price: -15 }],
     canBeExtra: false
@@ -191,7 +191,7 @@ export const foodItems: FoodItem[] = [
     //14
     name: 'Shake Shake Fries BBQ',
     price: 83,
-    image: '/images/peachee.jpg',
+    image: '/images/ShakeShakeBBQ.jpeg',
     variant: [
       { name: 'Large', price: 25 },
       { name: 'BFF', price: 50 }
@@ -203,7 +203,7 @@ export const foodItems: FoodItem[] = [
     //15
     name: 'Shake Shake Fries Cheese',
     price: 83,
-    image: '/images/peachee.jpg',
+    image: '/images/ShakeShakeCheese.jpeg',
     variant: [
       { name: 'Large', price: 25 },
       { name: 'BFF', price: 50 }
@@ -215,7 +215,7 @@ export const foodItems: FoodItem[] = [
     //16
     name: 'Quarter Pounder',
     price: 191,
-    image: '/images/peachee.jpg',
+    image: '/images/QuarterPounder.jpeg',
     variant: [{ name: 'Double', price: 40 }],
     category: 'meal',
     canBeExtra: true
@@ -224,7 +224,7 @@ export const foodItems: FoodItem[] = [
     //17
     name: 'Cheeseburger',
     price: 60,
-    image: '/images/peachee.jpg',
+    image: '/images/CheeseBurger.jpeg',
     variant: [
       { name: 'Double', price: 25 },
       { name: 'Triple', price: 50 }
@@ -236,7 +236,7 @@ export const foodItems: FoodItem[] = [
     //18
     name: 'Coke Zero',
     price: 75,
-    image: '/images/coke.jpeg',
+    image: '/images/CokeZero.jpeg',
     category: 'drink',
     variant: [
       { name: 'Small', price: -30 },
@@ -248,7 +248,7 @@ export const foodItems: FoodItem[] = [
     //19
     name: 'Sprite',
     price: 75,
-    image: '/images/coke.jpeg',
+    image: '/images/Sprite.jpeg',
     category: 'drink',
     variant: [
       { name: 'Small', price: -30 },
@@ -260,7 +260,7 @@ export const foodItems: FoodItem[] = [
     //20
     name: 'Orange Juice',
     price: 82,
-    image: '/images/coke.jpeg',
+    image: '/images/OrangeJuice.jpeg',
     category: 'drink',
     variant: [
       { name: 'Small', price: -30 },
@@ -272,7 +272,7 @@ export const foodItems: FoodItem[] = [
     //21
     name: 'Iced Tea',
     price: 82,
-    image: '/images/coke.jpeg',
+    image: '/images/IcedTea.jpeg',
     category: 'drink',
     variant: [
       { name: 'Small', price: -30 },

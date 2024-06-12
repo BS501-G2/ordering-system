@@ -147,24 +147,22 @@
                         })}
                       {/each}
 
-                      {#if !foodItems[$currentOrderData[0].main.index].canBeExtra}
-                        <Button
-                          container={actionContainer}
-                          onClick={async () => {
-                            const selection = await launchFoodItemSelector(($currentOrderData[0].extras ?? []).map((selection) => foodItems[selection.index]));
+                      <Button
+                        container={actionContainer}
+                        onClick={async () => {
+                          const selection = await launchFoodItemSelector(([...$currentOrderData[0].extras ?? [], $currentOrderData[0].main]).map((selection) => foodItems[selection.index]));
 
-                            if (selection == null) {
-                              return;
-                            }
+                          if (selection == null) {
+                            return;
+                          }
 
-                            currentOrderData.update((currentOrderData) => {
-                              currentOrderData[0].extras ??= [];
-                              currentOrderData[0].extras.push(selection);
-                              return currentOrderData;
-                            });
-                          }}>Add Extra</Button
-                        >
-                      {/if}
+                          currentOrderData.update((currentOrderData) => {
+                            currentOrderData[0].extras ??= [];
+                            currentOrderData[0].extras.push(selection);
+                            return currentOrderData;
+                          });
+                        }}>Add Extra</Button
+                      >
                     </div>
                   </td>
                 </tr>

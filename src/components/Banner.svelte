@@ -20,7 +20,9 @@
     '/images/banners/cardi-b-offset-mcdonalds-meal-superbowl-021023-1-bbfdd30e4ad948008b2ae2ccae334c88.jpg',
     '/images/banners/qt1pq58r827iyyvugjfr.jpg',
     '/images/banners/McDonalds-Crave--Claim-GMA_cover_photo_2022_08_31_18_48_14.jpg',
-    '/images/banners/McDonalds-Best-Tasting-Chicken-McDo-and-World-Famous-Fries.jpg'
+    '/images/banners/McDonalds-Best-Tasting-Chicken-McDo-and-World-Famous-Fries.jpg',
+    '/images/banners/why-self-service-kiosk-is-the-future-2.webp',
+    '/images/banners/restaurants-digital-signage.jpg'
   ];
   const tabs: TabItem<{ image: string }>[] = images.map((image) => ({
     name: 'Image',

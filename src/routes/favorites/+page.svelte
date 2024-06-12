@@ -29,7 +29,7 @@
       main: { index: 3, quantity: 1 },
       extras: [
         { index: 4, quantity: 1 },
-        { index: 5, quantity: 1 }
+        { index: 7, quantity: 1 }
       ],
       image: 'https://d1r3vc4fck3z1b.cloudfront.net/images/1698333158_web_alacarte_4xRv9inE.jpeg'
     },
